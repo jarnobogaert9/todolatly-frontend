@@ -29,8 +29,13 @@
       <v-toolbar-title>Todo Application</v-toolbar-title>
       
       <v-spacer></v-spacer>
-      <v-btn to="/login" text color="white">Login</v-btn>
-      <v-btn text color="white">Register</v-btn>
+      <div v-if="!this.$store.state.token">
+        <v-btn to="/login" text color="white">Login</v-btn>
+        <v-btn to="/register" text color="white">Register</v-btn>
+      </div>
+      <div v-else>
+        <v-btn @click="logout" text color="white">Logout</v-btn>
+      </div>
     </v-app-bar>
 
     <v-content>
@@ -50,7 +55,12 @@
 <script>
 export default {
   name: 'App',
-
+  methods: {
+    logout() {
+      this.$store.state.token = null;
+      this.$router.push('/');
+    }
+  },
   data: () => ({
     drawer: false,
     links: [

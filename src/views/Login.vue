@@ -38,6 +38,7 @@ export default {
       if (response.status == 400) {
         this.msg = json.msg;
       } else if (response.status == 200) {
+        this.$store.dispatch('asyncSetToken', json.data.token);
         this.$router.push('/');
       }
       this.loading = false;
