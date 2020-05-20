@@ -1,22 +1,33 @@
 <template>
   <div>
-    <v-row class justify="center" algin="center" no-gutter>
-      <v-col lg="6" class="mt-12">
-        <v-alert v-if="msg" type="error">{{msg}}</v-alert>
-        <h2>Login</h2>
-        <v-form ref="form">
-          <v-text-field v-model="user.username" label="Username"></v-text-field>
-          <v-text-field v-model="user.password" label="Password"></v-text-field>
-          <v-btn @click="loginAction" color="indigo white--text" :loading="loading">Log In</v-btn>
-        </v-form>
-      </v-col>
-    </v-row>
+    <LandingNav>
+      <v-row class justify="center" algin="center" no-gutter>
+        <v-col lg="6" class="mt-12">
+          <v-alert v-if="msg" type="error">{{msg}}</v-alert>
+          <v-alert v-for="error in errors" type="error" :key="error.msg">{{error.msg}}</v-alert>
+          <h2>Login</h2>
+          <v-form ref="form">
+            <v-text-field v-model="user.username" label="Username"></v-text-field>
+            <v-text-field v-model="user.password" label="Password"></v-text-field>
+            <v-btn
+              @click="loginAction"
+              color="deep-purple accent-4 white--text"
+              :loading="loading"
+            >Log In</v-btn>
+          </v-form>
+        </v-col>
+      </v-row>
+    </LandingNav>
   </div>
 </template>
 
 <script>
 import { BASE_API_URL } from "../config";
+import LandingNav from "../components/LandingNav";
 export default {
+  components: {
+    LandingNav
+  },
   data() {
     return {
       user: {
@@ -24,22 +35,37 @@ export default {
         password: ""
       },
       msg: "",
-      loading: false
+      loading: false,
+      errors: []
     };
   },
   methods: {
+    validateForm() {
+      this.errors = [];
+      if (!this.user.username) {
+        this.errors.push({ msg: "Username is required" });
+      }
+      if (!this.user.password) {
+        this.errors.push({ msg: "Password is required" });
+      }
+      return this.errors.length;
+    },
     async loginAction() {
       this.loading = true;
-      const { username, password } = this.user;
-      const response = await fetch(
-        `${BASE_API_URL}/users/login?username=${username}&password=${password}`
-      );
-      const json = await response.json();
-      if (response.status == 400) {
-        this.msg = json.msg;
-      } else if (response.status == 200) {
-        this.$store.dispatch('asyncSetToken', json.data.token);
-        this.$router.push('/');
+      this.msg = "";
+      const amountOfErrors = this.validateForm();
+      if (amountOfErrors == 0) {
+        const { username, password } = this.user;
+        const response = await fetch(
+          `${BASE_API_URL}/users/login?username=${username}&password=${password}`
+        );
+        const json = await response.json();
+        if (response.status == 400) {
+          this.msg = json.msg;
+        } else if (response.status == 200) {
+          this.$store.dispatch("asyncSetToken", json.data.token);
+          this.$router.push("/dashboard");
+        }
       }
       this.loading = false;
     }

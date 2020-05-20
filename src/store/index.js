@@ -10,11 +10,17 @@ export default new Vuex.Store({
   mutations: {
     setToken(state, token) {
       state.token = token;
+    },
+    logout(state) {
+      state.token = null;
     }
   },
   actions: {
     asyncSetToken({commit}, token) {
       commit('setToken', token);
+    },
+    asyncLogout({commit}) {
+      commit('logout');
     }
   },
   modules: {

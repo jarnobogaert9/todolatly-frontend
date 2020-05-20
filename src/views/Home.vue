@@ -1,13 +1,18 @@
 <template>
   <div>
-    <h1>Welcome to your homepage.</h1>
-    <p>Get shit done.</p>
+    <LandingNav>
+      <h1 class="display-1"></h1>
+    </LandingNav>
   </div>
 </template>
 
 <script>
 
+import LandingNav from '../components/LandingNav';
 export default {
   name: 'Home',
+  components: {
+    LandingNav
+  }
 }
 </script>

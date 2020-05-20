@@ -1,5 +1,6 @@
 <template>
   <div>
+    <DashboardNav>
     <div v-if="loading" class="text-center mt-12">
       <v-progress-circular indeterminate color="primary" size="40"></v-progress-circular>
     </div>
@@ -18,19 +19,24 @@
             </v-list-item>
 
             <v-card-actions>
-              <v-btn text color="green accent-4">Edit</v-btn>
+              <v-btn text color="indigo">Edit</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
     </div>
+    </DashboardNav>
   </div>
 </template>
 
 <script>
-import {BASE_API_URL} from '../config'
+import {BASE_API_URL} from '../config';
+import DashboardNav from '../components/DashboardNav';
 
 export default {
+  components: {
+    DashboardNav
+  },
   data() {
     return {
       loading: true,

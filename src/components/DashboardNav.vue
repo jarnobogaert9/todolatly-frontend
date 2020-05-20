@@ -1,7 +1,7 @@
 <template>
-  <v-app id="inspire">
+  <div>
     <!-- Left Navbar -->
-    <!-- <v-navigation-drawer
+    <v-navigation-drawer
       v-model="drawer"
       app
       :clipped="$vuetify.breakpoint.lgAndUp"
@@ -16,11 +16,16 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-    </v-navigation-drawer> -->
+      <template v-slot:append>
+        <div class="pa-2">
+          <v-btn :to="{name: 'home'}" block>Exit Application</v-btn>
+        </div>
+      </template>
+    </v-navigation-drawer>
     <!-- Upper Navbar -->
-    <!-- <v-app-bar
+    <v-app-bar
       app
-      color="indigo"
+      color="deep-purple accent-4"
       dark
       :clipped-left="$vuetify.breakpoint.lgAndUp"
     >
@@ -35,48 +40,45 @@
       <div v-else>
         <v-btn @click="logout" text color="white">Logout</v-btn>
       </div>
-    </v-app-bar> -->
-
-    <v-content>
-        <router-view></router-view>
-    </v-content>
-    <!-- <v-footer
-      color="indigo"
-      app
-    >
-      <span class="white--text">&copy; 2019</span>
-    </v-footer> -->
-  </v-app>
+    </v-app-bar>
+    <v-container>
+      <slot></slot>
+    </v-container>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'App',
+  data() {
+    return {
+      drawer: false,
+      links: [
+        {
+          text: 'Dashboard',
+          route: '/dashboard',
+          icon: 'home'
+        },
+        {
+          text: 'Todos',
+          route: '/todos',
+          icon: 'list_alt'
+        },
+        {
+          text: 'Profile',
+          route: '/profile',
+          icon: 'account_circle'
+        }
+      ]
+    }
+  },
   methods: {
-    logout() {
-      this.$store.state.token = null;
+    async logout() {
+      await this.$store.dispatch("asyncLogout");
       this.$router.push('/');
     }
   },
-  data: () => ({
-    drawer: false,
-    links: [
-      {
-        route: '/',
-        icon: 'mdi-home',
-        text: 'Home'
-      },
-      {
-        route: '/todos',
-        icon: 'list_alt',
-        text: 'Todos'
-      },
-      {
-        route: '/profile',
-        icon: 'account_circle',
-        text: 'Profile'
-      }
-    ]
-  }),
 };
 </script>
+
+<style lang="css" scoped>
+</style>
