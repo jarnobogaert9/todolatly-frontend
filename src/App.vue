@@ -1,32 +1,75 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app id="inspire">
+    <!-- Left Navbar -->
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+      :clipped="$vuetify.breakpoint.lgAndUp"
+    >
+      <v-list dense>
+        <v-list-item v-for="link in links" :key="link.text" router :to="link.route" link>
+          <v-list-item-action>
+            <v-icon>{{link.icon}}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>{{link.text}}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <!-- Upper Navbar -->
+    <v-app-bar
+      app
+      color="indigo"
+      dark
+      :clipped-left="$vuetify.breakpoint.lgAndUp"
+    >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title>Todo Application</v-toolbar-title>
+      
+      <v-spacer></v-spacer>
+      <v-btn to="/login" text color="white">Login</v-btn>
+      <v-btn text color="white">Register</v-btn>
+    </v-app-bar>
+
+    <v-content>
+      <v-container>
+        <router-view></router-view>
+      </v-container>
+    </v-content>
+    <v-footer
+      color="indigo"
+      app
+    >
+      <span class="white--text">&copy; 2019</span>
+    </v-footer>
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+export default {
+  name: 'App',
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+  data: () => ({
+    drawer: false,
+    links: [
+      {
+        route: '/',
+        icon: 'mdi-home',
+        text: 'Home'
+      },
+      {
+        route: '/todos',
+        icon: 'list_alt',
+        text: 'Todos'
+      },
+      {
+        route: '/about',
+        icon: 'account_circle',
+        text: 'Profile'
+      }
+    ]
+  }),
+};
+</script>
