@@ -75,7 +75,7 @@ export default {
         text: 'Todos'
       },
       {
-        route: '/about',
+        route: '/profile',
         icon: 'account_circle',
         text: 'Profile'
       }
