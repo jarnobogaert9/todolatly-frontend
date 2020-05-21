@@ -9,7 +9,7 @@
           </div>
           <div class="mt-8">
             <h1 class="title">What is todolatly?</h1>
-            <p>Todolatly is a productivity tool to track tasks you need to accomplish.</p>
+            <p>Todolatly is a productivity tool to track the tasks you need to accomplish.</p>
           </div>
           <div class="mt-8">
             <h1 class="title">Why todolatly?</h1>

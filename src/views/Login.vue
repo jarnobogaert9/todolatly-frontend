@@ -5,6 +5,7 @@
         <v-col lg="6" class="mt-12">
           <v-alert v-if="warning" type="warning">{{warning}}</v-alert>
           <v-alert v-for="error in errors" type="error" :key="error.msg">{{error.msg}}</v-alert>
+          <v-alert v-if="msg" type="error">{{msg}}</v-alert>
           <h2>Login</h2>
           <v-form ref="form">
             <v-text-field v-model="user.username" label="Username"></v-text-field>
@@ -57,6 +58,7 @@ export default {
     async loginAction() {
       this.loading = true;
       this.msg = "";
+      this.warning = "";
       const amountOfErrors = this.validateForm();
       if (amountOfErrors == 0) {
         const { username, password } = this.user;
