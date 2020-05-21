@@ -11,7 +11,7 @@
               <v-list-item three-line>
                 <v-list-item-content>
                   <div class="overline mb-4">PROFILE</div>
-                  <v-list-item-title class="headline mb-1">Username: {{this.user.username}}</v-list-item-title>
+                  <v-list-item-title class="headline mb-1">Username: <span v-if="user">{{this.user.username}}</span></v-list-item-title>
                   <v-list-item-subtitle></v-list-item-subtitle>
                 </v-list-item-content>
 
