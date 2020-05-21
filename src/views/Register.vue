@@ -3,12 +3,14 @@
     <LandingNav>
       <v-row class justify="center" algin="center" no-gutter>
         <v-col lg="6" class="mt-12">
+          <v-alert v-if="success" type="success">{{success}}</v-alert>
           <v-alert v-if="msg" type="error">{{msg}}</v-alert>
           <v-alert v-for="error in errors" :key="error.msg" type="error">{{error.msg}}</v-alert>
           <h2>Register</h2>
           <v-form ref="form">
             <v-text-field v-model="user.username" label="Username"></v-text-field>
             <v-text-field v-model="user.password" label="Password"></v-text-field>
+            <v-text-field v-model="user.password2" label="Re-enter password"></v-text-field>
             <v-btn
               @click="registerAction"
               color="deep-purple accent-4 white--text"
@@ -32,9 +34,11 @@ export default {
     return {
       user: {
         username: "",
-        password: ""
+        password: "",
+        password2: ""
       },
       msg: "",
+      success: "",
       loading: false,
       errors: []
     };
@@ -48,10 +52,14 @@ export default {
       if (!this.user.password) {
         this.errors.push({ msg: "Password is required" });
       }
+      if (this.user.password !== this.user.password2) {
+        this.errors.push({ msg: "Both passwords must match" });
+      }
       return this.errors.length;
     },
     async registerAction() {
       this.loading = true;
+      this.msg = "";
       const amountOfErrors = this.validateForm();
       if (amountOfErrors == 0) {
         const { username, password } = this.user;
@@ -66,11 +74,12 @@ export default {
           })
         });
         const json = await response.json();
+        
         if (response.status == 400) {
           this.msg = json.msg;
-        } else if (response.status == 200) {
-          this.$store.dispatch("asyncSetToken", json.data.token);
-          this.$router.push("/");
+        } else if (response.status == 201) {
+          // this.$store.dispatch("asyncSetToken", json.data.token);
+          this.$router.push("/login");
         }
       }
       this.loading = false;
