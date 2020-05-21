@@ -85,6 +85,8 @@ export default {
       const { token } = this.$store.state;
       const profile = await fetchProfile(token);
       if (!profile) {
+        localStorage.removeItem('token');
+        this.$store.state.token = null;
         this.$router.push({name: "login", params: {msg: "You are not authenticated, please log in first."}});
       }
     }
