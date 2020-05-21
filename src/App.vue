@@ -52,9 +52,18 @@
 <script>
 export default {
   name: 'App',
+  created () {
+    const token = JSON.parse(localStorage.getItem('token'));
+    if (!token) {
+      console.log("not logged in");
+    } else {
+      console.log("token in storage");
+      this.$store.dispatch('asyncSetToken', token);
+    }
+  },
   methods: {
-    logout() {
-      this.$store.state.token = null;
+    async logout() {
+      await this.$store.dispatch("asyncLogout")
       this.$router.push('/');
     }
   },

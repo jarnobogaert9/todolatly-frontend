@@ -10,9 +10,11 @@ export default new Vuex.Store({
   mutations: {
     setToken(state, token) {
       state.token = token;
+      localStorage.setItem('token', JSON.stringify(token));
     },
     logout(state) {
       state.token = null;
+      localStorage.removeItem('token');
     },
   },
   actions: {
