@@ -28,7 +28,6 @@ export default {
       const { token } = this.$store.state;
       const profile = await fetchProfile(token);
       this.user = profile;
-      
     }
   },
   async created() {

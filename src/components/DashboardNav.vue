@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import {fetchProfile} from "../services/UserService";
 export default {
   data() {
     return {
@@ -75,7 +76,17 @@ export default {
     async logout() {
       await this.$store.dispatch("asyncLogout");
       this.$router.push('/');
+    },
+    async authenticated() {
+      const { token } = this.$store.state;
+      const profile = await fetchProfile(token);
+      if (!profile) {
+        this.$router.push({name: "login", params: {msg: "You are not authenticated, please log in first."}});
+      }
     }
+  },
+  created () {
+    this.authenticated();
   },
 };
 </script>

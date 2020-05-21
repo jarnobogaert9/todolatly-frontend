@@ -3,7 +3,7 @@
     <LandingNav>
       <v-row class justify="center" algin="center" no-gutter>
         <v-col lg="6" class="mt-12">
-          <v-alert v-if="msg" type="error">{{msg}}</v-alert>
+          <v-alert v-if="warning" type="warning">{{warning}}</v-alert>
           <v-alert v-for="error in errors" type="error" :key="error.msg">{{error.msg}}</v-alert>
           <h2>Login</h2>
           <v-form ref="form">
@@ -35,9 +35,13 @@ export default {
         password: ""
       },
       msg: "",
+      warning: "",
       loading: false,
       errors: []
     };
+  },
+  created () {
+    this.showNotAuthWarning();
   },
   methods: {
     validateForm() {
@@ -68,6 +72,10 @@ export default {
         }
       }
       this.loading = false;
+    },
+    showNotAuthWarning() {
+      if (this.$route.params.msg)
+        this.warning = this.$route.params.msg;
     }
   }
 };
