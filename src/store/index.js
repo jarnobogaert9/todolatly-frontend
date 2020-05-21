@@ -13,7 +13,7 @@ export default new Vuex.Store({
     },
     logout(state) {
       state.token = null;
-    }
+    },
   },
   actions: {
     asyncSetToken({commit}, token) {

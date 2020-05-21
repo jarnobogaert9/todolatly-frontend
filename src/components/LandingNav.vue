@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app-bar color="deep-purple accent-4" dark>
-      <router-link class="brand white--text title" to="/">Todo</router-link>
+      <router-link class="brand white--text title" to="/">Todolatly</router-link>
       <v-spacer></v-spacer>
       <div v-if="!this.$store.state.token">
         <v-btn text router :to="{name: 'login'}">Login</v-btn>

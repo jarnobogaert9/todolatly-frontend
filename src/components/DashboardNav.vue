@@ -30,7 +30,7 @@
       :clipped-left="$vuetify.breakpoint.lgAndUp"
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Todo Application</v-toolbar-title>
+      <v-toolbar-title>Todolatly</v-toolbar-title>
       
       <v-spacer></v-spacer>
       <div v-if="!this.$store.state.token">
