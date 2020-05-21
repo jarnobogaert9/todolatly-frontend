@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    token: null
+    token: null,
+    todos: []
   },
   mutations: {
     setToken(state, token) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
       state.token = null;
       localStorage.removeItem('token');
     },
+    addTodo(state, todo) {
+      state.todos = [todo, ...state.todos];
+    }
   },
   actions: {
     asyncSetToken({commit}, token) {
@@ -23,6 +27,9 @@ export default new Vuex.Store({
     },
     asyncLogout({commit}) {
       commit('logout');
+    },
+    asyncAddTodo({commit}, todo) {
+      commit('addTodo', todo);
     }
   },
   modules: {

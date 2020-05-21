@@ -42,7 +42,11 @@
       </div>
     </v-app-bar>
     <v-container>
-      <slot></slot>
+      <v-row>
+        <v-col cols="8" offset="2">
+          <slot></slot>
+        </v-col>
+      </v-row>
     </v-container>
   </div>
 </template>

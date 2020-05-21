@@ -6,8 +6,8 @@
       </div>
       <div v-if="!loading">
         <v-row class justify="center" algin="center" no-gutter>
-          <v-col lg="8" class="mt-2">
-            <v-card class="mx-auto" outlined>
+          <v-col lg="12" class="mt-2">
+            <v-card class="" outlined>
               <v-list-item three-line>
                 <v-list-item-content>
                   <div class="overline mb-4">PROFILE</div>
