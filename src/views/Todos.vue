@@ -62,6 +62,7 @@ export default {
     }
   },
   created () {
+    this.$store.dispatch('asyncSetTodos', []);
     this.showTodos();
   },
 };
