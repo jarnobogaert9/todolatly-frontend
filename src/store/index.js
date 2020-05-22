@@ -19,6 +19,9 @@ export default new Vuex.Store({
     },
     addTodo(state, todo) {
       state.todos = [todo, ...state.todos];
+    },
+    setTodos(state, todos) {
+      state.todos = [...todos.reverse()];
     }
   },
   actions: {
@@ -30,6 +33,9 @@ export default new Vuex.Store({
     },
     asyncAddTodo({commit}, todo) {
       commit('addTodo', todo);
+    },
+    asyncSetTodos({commit}, todos) {
+      commit('setTodos', todos);
     }
   },
   modules: {

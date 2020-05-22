@@ -1,7 +1,7 @@
 import {BASE_API_URL} from "../config";
 
 const fetchProfile = async (token) => {
-    const response = await fetch(`${BASE_API_URL}/users/profile?token=${token}`, {
+    const response = await fetch(`${BASE_API_URL}/users/profile`, {
         headers: {
             'authorization': token
         }
@@ -10,6 +10,8 @@ const fetchProfile = async (token) => {
         return false;
     }
     const json = await response.json();
+    console.log(json);
+    
     return json.data;
 }
 

@@ -19,6 +19,7 @@
 
 <script>
 import DashboardNav from "../components/DashboardNav";
+import {addTodo, fetchTodos} from '../services/TodoService';
 export default {
   components: {
     DashboardNav
@@ -29,6 +30,11 @@ export default {
     }
   },
   methods: {
+    async showTodos() {
+      const todos = await fetchTodos(this.$store.state.token);
+      if (todos.length > 0)
+        this.$store.dispatch('asyncSetTodos', todos);
+    },
     async addTodo() {
       console.log("Add todo");
       console.log(this.todo);
@@ -36,6 +42,17 @@ export default {
         text: this.todo,
       };
       await this.$store.dispatch('asyncAddTodo', newTodo);
+      const result = await addTodo(this.todo, this.$store.state.token);
+      switch (result) {
+        case 201:
+          break;
+        case 400:
+          break;
+        case 500:
+          break;      
+        default:
+          break;
+      }
       this.todo = "";
     }
   },
@@ -43,6 +60,9 @@ export default {
     todos() {
       return this.$store.state.todos; 
     }
+  },
+  created () {
+    this.showTodos();
   },
 };
 </script>
