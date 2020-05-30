@@ -9,7 +9,8 @@
       </div>
       <div v-else>
         <v-btn text router :to="{name: 'dashboard'}">Back to dashboard</v-btn>
-        <v-btn text @click="logout">Logout</v-btn>
+        <!-- <v-btn text @click="logout">Logout</v-btn> -->
+        <v-icon @click="logout">exit_to_app</v-icon>
       </div>
     </v-app-bar>
     <v-container>

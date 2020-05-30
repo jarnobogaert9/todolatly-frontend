@@ -1,4 +1,4 @@
-# client
+# Todolatly
 
 ## Project setup
 ```

@@ -38,7 +38,8 @@
         <v-btn to="/register" text color="white">Register</v-btn>
       </div>
       <div v-else>
-        <v-btn @click="logout" text color="white">Logout</v-btn>
+        <!-- <v-btn @click="logout" text color="white">Logout</v-btn> -->
+        <v-icon @click="logout">exit_to_app</v-icon>
       </div>
     </v-app-bar>
     <v-container>
