@@ -6,7 +6,8 @@ const fetchProfile = async (token) => {
             'authorization': token
         }
     });
-    if (response.status == 403) {
+    const {status} = response;
+    if (status == 403 || status == 401) {
         return false;
     }
     const json = await response.json();
