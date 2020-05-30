@@ -1,3 +1,3 @@
 module.exports = {
-    BASE_API_URL: 'http://0.0.0.0:5000/api/v1'
+    BASE_API_URL: 'https://api-todolatly.jarnobogaert.xyz/api/v1'
 }
