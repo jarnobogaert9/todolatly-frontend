@@ -9,7 +9,7 @@
         @keypress.enter="addTodo"
       ></v-text-field>
       <div>
-        <p v-for="todo in todos" :key="todo.text">{{todo.text}}</p>
+        <Todo v-for="todo in todos" :todo="todo" :key="todo.text"></Todo>
       </div>
       <div>
       </div>
@@ -19,10 +19,12 @@
 
 <script>
 import DashboardNav from "../components/DashboardNav";
+import Todo from "../components/Todo";
 import {addTodo, fetchTodos} from '../services/TodoService';
 export default {
   components: {
-    DashboardNav
+    DashboardNav,
+    Todo
   },
   data() {
     return {
