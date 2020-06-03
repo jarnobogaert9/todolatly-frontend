@@ -1,7 +1,7 @@
 <template>
   <div>
     <DashboardNav>
-      <h1 class="heading">Todos</h1>
+      <h1 class="heading">Todo's</h1>
       <v-text-field
         v-model="todo"
         label="Enter todo"

@@ -8,8 +8,8 @@
           <v-alert v-if="msg" type="error">{{msg}}</v-alert>
           <h2>Login</h2>
           <v-form ref="form">
-            <v-text-field v-model="user.username" label="Username"></v-text-field>
-            <v-text-field v-model="user.password" label="Password"></v-text-field>
+            <v-text-field v-model="user.username" label="Username" @keypress.enter="loginAction"></v-text-field>
+            <v-text-field v-model="user.password" label="Password" @keypress.enter="loginAction"></v-text-field>
             <v-btn
               @click="loginAction"
               color="deep-purple accent-4 white--text"

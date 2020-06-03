@@ -8,9 +8,9 @@
           <v-alert v-for="error in errors" :key="error.msg" type="error">{{error.msg}}</v-alert>
           <h2>Register</h2>
           <v-form ref="form">
-            <v-text-field v-model="user.username" label="Username"></v-text-field>
-            <v-text-field v-model="user.password" label="Password"></v-text-field>
-            <v-text-field v-model="user.password2" label="Re-enter password"></v-text-field>
+            <v-text-field v-model="user.username" label="Username" @keypress.enter="registerAction"></v-text-field>
+            <v-text-field v-model="user.password" label="Password" @keypress.enter="registerAction"></v-text-field>
+            <v-text-field v-model="user.password2" label="Re-enter password" @keypress.enter="registerAction"></v-text-field>
             <v-btn
               @click="registerAction"
               color="deep-purple accent-4 white--text"

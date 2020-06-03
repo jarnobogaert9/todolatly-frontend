@@ -65,7 +65,7 @@ export default {
           icon: 'home'
         },
         {
-          text: 'Todos',
+          text: 'Todo\'s',
           route: '/todos',
           icon: 'list_alt'
         },
