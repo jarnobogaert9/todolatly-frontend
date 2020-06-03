@@ -9,7 +9,7 @@
         @keypress.enter="addTodo"
       ></v-text-field>
       <div>
-        <Todo v-for="todo in todos" :todo="todo" :key="todo.text"></Todo>
+        <Todo @removeTodo="removeTodoTrigger" v-for="todo in todos" :todo="todo" :key="todo.text"></Todo>
       </div>
       <div>
       </div>
@@ -32,6 +32,9 @@ export default {
     }
   },
   methods: {
+    async removeTodoTrigger(id) {
+      console.log(`Remove a todo with id ${id}`);
+    },
     async showTodos() {
       const todos = await fetchTodos(this.$store.state.token);
       if (todos.length > 0)

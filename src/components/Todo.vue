@@ -4,6 +4,7 @@
       <v-card-text>
         <div class="text--primary">
           {{todo.text}}
+          <v-icon class="float-right" @click="removeTodo(todo._id)">delete</v-icon>
         </div>
       </v-card-text>
     </v-card>
@@ -13,6 +14,11 @@
 <script>
 export default {
   props: ['todo'],
+  methods: {
+    removeTodo(id) {
+      this.$emit('removeTodo', id);
+    }
+  },
 };
 </script>
 
