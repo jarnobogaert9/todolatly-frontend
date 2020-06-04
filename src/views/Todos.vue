@@ -10,7 +10,17 @@
       ></v-text-field>
       <p class="overline mt-8 mb-5">Click todo to mark or unmark it</p>
       <div>
-        <Todo @removeTodo="removeTodoTrigger" @toggleTodo="toggleTodoTrigger" v-for="todo in todos" :todo="todo" :key="todo.text"></Todo>
+        <div v-if="loading">
+          <v-skeleton-loader
+            type="list-item"
+            v-for="x in 3"
+            :key="x"
+            height="60"
+          ></v-skeleton-loader>
+        </div>
+        <div v-if="!loading">
+          <Todo  @removeTodo="removeTodoTrigger" @toggleTodo="toggleTodoTrigger" v-for="todo in todos" :todo="todo" :key="todo.text"></Todo>
+        </div>
       </div>
       <div>
       </div>
@@ -29,7 +39,8 @@ export default {
   },
   data() {
     return {
-      todo: ""
+      todo: "",
+      loading: true
     }
   },
   methods: {
@@ -41,8 +52,10 @@ export default {
     },
     async showTodos() {
       const todos = await fetchTodos(this.$store.state.token);
-      if (todos.length > 0)
+      if (todos.length > 0) {
         this.$store.dispatch('asyncSetTodos', todos);
+        this.loading = false;
+      }
     },
     async addTodo() {
       console.log("Add todo");
