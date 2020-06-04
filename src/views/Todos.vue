@@ -8,8 +8,9 @@
         required
         @keypress.enter="addTodo"
       ></v-text-field>
+      <p class="overline mt-8 mb-5">Click todo to mark or unmark it</p>
       <div>
-        <Todo @removeTodo="removeTodoTrigger" v-for="todo in todos" :todo="todo" :key="todo.text"></Todo>
+        <Todo @removeTodo="removeTodoTrigger" @toggleTodo="toggleTodoTrigger" v-for="todo in todos" :todo="todo" :key="todo.text"></Todo>
       </div>
       <div>
       </div>
@@ -33,7 +34,10 @@ export default {
   },
   methods: {
     async removeTodoTrigger(id) {
-      console.log(`Remove a todo with id ${id}`);
+      console.log(`Remove todo with id ${id}`);
+    },
+    async toggleTodoTrigger(id) {
+      console.log(`Toggle todo with id ${id}`);
     },
     async showTodos() {
       const todos = await fetchTodos(this.$store.state.token);
