@@ -31,7 +31,7 @@
 <script>
 import DashboardNav from "../components/DashboardNav";
 import Todo from "../components/Todo";
-import {addTodo, fetchTodos} from '../services/TodoService';
+import {addTodo, fetchTodos, deleteTodo} from '../services/TodoService';
 export default {
   components: {
     DashboardNav,
@@ -46,27 +46,34 @@ export default {
   methods: {
     async removeTodoTrigger(id) {
       console.log(`Remove todo with id ${id}`);
+      const removed = await deleteTodo(this.$store.state.token, id);
+      switch (removed.response.status) {
+        case 200:
+          // Refresh ui (store)
+          this.$store.dispatch('asyncDeleteTodo', id);
+          break;
+      
+        default:
+          break;
+      }
     },
     async toggleTodoTrigger(id) {
       console.log(`Toggle todo with id ${id}`);
     },
     async showTodos() {
+      console.log('Token:', this.$store.state.token);
       const todos = await fetchTodos(this.$store.state.token);
-      if (todos.length > 0) {
+      console.log(todos);
+      // if (todos.length > 0) {
         this.$store.dispatch('asyncSetTodos', todos);
-        this.loading = false;
-      }
+      // }
+      this.loading = false;
     },
     async addTodo() {
-      console.log("Add todo");
-      console.log(this.todo);
-      const newTodo = {
-        text: this.todo,
-      };
-      await this.$store.dispatch('asyncAddTodo', newTodo);
-      const result = await addTodo(this.todo, this.$store.state.token);
-      switch (result) {
+      const {status, todo} = await addTodo(this.todo, this.$store.state.token);
+      switch (status) {
         case 201:
+          await this.$store.dispatch('asyncAddTodo', todo)
           break;
         case 400:
           break;

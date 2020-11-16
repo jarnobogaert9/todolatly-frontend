@@ -14,13 +14,13 @@ const addTodo = async (text, token) => {
     const json = await response.json();
     console.log(json);
     if (response.status == 500) {
-        return 500;
+        return {status: 500};
     }
     if (response.status == 400) {
-        return 400;
+        return {status: 400};
     }
     if (response.status == 201) {
-        return 201;
+        return {status: 201, todo: json.todo};
     }
 }
 
@@ -35,7 +35,21 @@ const fetchTodos = async (token) => {
     return json;
 }
 
+const deleteTodo = async (token, todoId) => {
+    const response = await fetch(`${BASE_API_URL}/todos/${todoId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "authorization": token
+        }
+    });
+
+    const json = await response.json();
+    return {response, json};
+}
+
 export {
     addTodo,
-    fetchTodos
+    fetchTodos,
+    deleteTodo
 }

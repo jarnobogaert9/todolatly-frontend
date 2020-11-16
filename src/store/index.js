@@ -22,6 +22,9 @@ export default new Vuex.Store({
     },
     setTodos(state, todos) {
       state.todos = [...todos.reverse()];
+    },
+    deleteTodo(state, todoId) {
+      state.todos = state.todos.filter(x => x._id != todoId);
     }
   },
   actions: {
@@ -36,6 +39,9 @@ export default new Vuex.Store({
     },
     asyncSetTodos({commit}, todos) {
       commit('setTodos', todos);
+    },
+    asyncDeleteTodo({commit}, todoId) {
+      commit('deleteTodo', todoId);
     }
   },
   modules: {

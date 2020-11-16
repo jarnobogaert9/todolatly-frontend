@@ -1,12 +1,14 @@
 <template>
   <div class="mb-4">
     <v-card elevation="2" class="mx-auto">
+      <div class="hover" @click="toggleTodo(todo._id)" title="Toggle todo">
       <v-card-text>
         <div class="text--primary">
-          <span :class="{toggled: todo.done}" class="todo" @click="toggleTodo(todo._id)">{{todo.text}}</span>
-          <v-icon v-if="todo.done" class="float-right" @click="removeTodo(todo._id)">delete</v-icon>
+          <span :class="{toggled: todo.done}" class="todo">{{todo.text}}</span>
+          <v-icon v-if="todo.done" class="float-right" @click="removeTodo(todo._id)" title="Remove todo">delete</v-icon>
         </div>
       </v-card-text>
+      </div>
     </v-card>
   </div>
 </template>
@@ -32,5 +34,8 @@ export default {
 }
 .toggled {
   text-decoration: line-through;
+}
+.hover {
+  cursor: pointer;
 }
 </style>
